@@ -1,0 +1,12 @@
+---
+- name: restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+
+- name: restart iis site
+  community.windows.win_iis_website:
+    name: "{{ iis_site_name }}"
+    state: restarted
+
+

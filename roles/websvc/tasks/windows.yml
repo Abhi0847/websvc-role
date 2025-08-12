@@ -1,0 +1,55 @@
+---
+- name: Ensure IIS Web-Server feature is installed
+  ansible.windows.win_feature:
+    name: Web-Server
+    state: present
+  tags: install
+
+- name: Ensure site content directory exists
+  ansible.windows.win_file:
+    path: "{{ iis_site_path }}"
+    state: directory
+
+- name: Deploy web.config from template
+  ansible.windows.win_template:
+    src: web.config.j2
+    dest: "{{ iis_site_path }}\\web.config"
+  notify: restart iis site
+  diff: yes
+  tags: config
+
+- name: Ensure IIS application pool exists
+  community.windows.win_iis_webapppool:
+    name: "{{ iis_pool_name }}"
+    state: started
+
+- name: Configure IIS app pool identity
+  community.windows.win_iis_webapppool:
+    name: "{{ iis_pool_name }}"
+    state: started
+    identity: specificUser
+    username: "{{ iis_pool_user }}"
+    password: "{{ iis_pool_password }}"
+  no_log: true
+
+- name: Ensure IIS site exists
+  community.windows.win_iis_website:
+    name: "{{ iis_site_name }}"
+    state: started
+    port: "{{ websvc_port }}"
+    ip: "*"
+    hostname: ""
+    physical_path: "{{ iis_site_path }}"
+    application_pool: "{{ iis_pool_name }}"
+
+- name: Allow HTTP port in Windows Firewall
+  ansible.windows.win_firewall_rule:
+    name: "Allow HTTP on port {{ websvc_port }}"
+    localport: "{{ websvc_port }}"
+    action: allow
+    direction: in
+    protocol: TCP
+    state: present
+    enabled: yes
+  tags: firewall
+

@@ -1,0 +1,10 @@
+---
+- name: Deploy Windows IIS service
+  hosts: windows_web
+  gather_facts: yes
+
+  roles:
+    - role: websvc
+      vars:
+        websvc_platform: windows
+

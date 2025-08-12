@@ -1,0 +1,10 @@
+<html>
+  <head><title>{{ env_name }} - Web Service</title></head>
+  <body>
+    <h1>Environment: {{ env_name }}</h1>
+    <p>Hostname: {{ ansible_hostname }}</p>
+    <p>Deployment Date: {{ ansible_date_time.date }}</p>
+    <p>API Key: {{ api_key }}</p>
+  </body>
+</html>
+

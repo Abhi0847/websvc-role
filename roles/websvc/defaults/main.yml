@@ -1,0 +1,17 @@
+---
+# Common defaults
+env_name: dev
+websvc_port: 8080
+
+# Linux defaults
+nginx_site_root: /var/www/html
+nginx_conf_path: /etc/nginx/conf.d/websvc.conf
+
+# Windows defaults
+iis_site_name: "MySite"
+iis_site_path: "C:\\inetpub\\mysite"
+iis_pool_name: "{{ iis_site_name }}_pool"
+iis_pool_user: "DOMAIN\\svc_account"
+
+# OS platform selector
+websvc_platform: linux

@@ -1,0 +1,10 @@
+---
+- name: Run Linux tasks
+  include_tasks: linux.yml
+  when: websvc_platform | lower == "linux"
+  tags: [install, config, firewall]
+
+- name: Run Windows tasks
+  include_tasks: windows.yml
+  when: websvc_platform | lower == "windows"
+  tags: [install, config, firewall]

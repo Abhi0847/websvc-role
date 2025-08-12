@@ -41,8 +41,7 @@ This Ansible project automates the deployment of a web service on both Linux (Ng
 
 ## Directory Structure
 
-###
-/etc/ansible/
+'''/etc/ansible/
 ├── group_vars/
 │   ├── dev/
 │   │   ├── vars.yml
@@ -66,8 +65,7 @@ This Ansible project automates the deployment of a web service on both Linux (Ng
 │       └── defaults/
 │           └── main.yml
 ├── site-linux.yml
-└── site-windows.yml
-###
+└── site-windows.yml '''
 
 
 ---

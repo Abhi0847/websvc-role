@@ -1,4 +1,4 @@
-# README for Web Service Role Deployment with Ansible
+# README for Web Service Deployment with Ansible
 
 ## Overview
 

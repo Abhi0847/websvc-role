@@ -45,12 +45,12 @@ This Ansible project automates the deployment of a web service on both Linux (Ng
 ├── group_vars/
 │ ├── dev/
 │ │ ├── vars.yml
-│ │ └── vault.yml # Encrypted vault file with secrets
+│ │ └── vault.yml
 │ └── prod/
 │ ├── vars.yml
-│ └── vault.yml # Encrypted vault file with secrets
+│ └── vault.yml
 ├── inventory/
-│ └── dev.ini # Inventory file for dev environment
+│ └── dev.ini
 ├── roles/
 │ └── websvc/
 │ ├── tasks/
@@ -64,8 +64,8 @@ This Ansible project automates the deployment of a web service on both Linux (Ng
 │ │ └── web.config.j2
 │ └── defaults/
 │ └── main.yml
-├── site-linux.yml # Main playbook for Linux deployment
-├── site-windows.yml # Main playbook for Windows deployment
+├── site-linux.yml
+└── site-windows.yml
 
 
 ---

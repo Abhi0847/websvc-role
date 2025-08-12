@@ -41,31 +41,33 @@ This Ansible project automates the deployment of a web service on both Linux (Ng
 
 ## Directory Structure
 
+###
 /etc/ansible/
 ├── group_vars/
-│ ├── dev/
-│ │ ├── vars.yml
-│ │ └── vault.yml
-│ └── prod/
-│ ├── vars.yml
-│ └── vault.yml
+│   ├── dev/
+│   │   ├── vars.yml
+│   │   └── vault.yml
+│   └── prod/
+│       ├── vars.yml
+│       └── vault.yml
 ├── inventory/
-│ └── dev.ini
+│   └── dev.ini
 ├── roles/
-│ └── websvc/
-│ ├── tasks/
-│ │ ├── main.yml
-│ │ ├── linux.yaml
-│ │ └── windows.yaml
-│ ├── handlers/
-│ │ └── main.yml
-│ ├── templates/
-│ │ ├── index.html.j2
-│ │ └── web.config.j2
-│ └── defaults/
-│ └── main.yml
+│   └── websvc/
+│       ├── tasks/
+│       │   ├── main.yml
+│       │   ├── linux.yaml
+│       │   └── windows.yaml
+│       ├── handlers/
+│       │   └── main.yml
+│       ├── templates/
+│       │   ├── index.html.j2
+│       │   └── web.config.j2
+│       └── defaults/
+│           └── main.yml
 ├── site-linux.yml
 └── site-windows.yml
+###
 
 
 ---

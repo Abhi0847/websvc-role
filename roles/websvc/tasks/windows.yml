@@ -1,27 +1,28 @@
 ---
-- name: Ensure IIS Web-Server feature is installed
+- name: Install IIS Web Server
   ansible.windows.win_feature:
-    name: Web-Server
+    name:
+      - Web-Server
+      - Web-WebServer
+      - Web-Mgmt-Tools
+      - Web-Mgmt-Console
     state: present
-  tags: install
+    include_management_tools: yes
+  async: 600
+  poll: 5
+  register: iis_install
+  tags: setup
 
-- name: Ensure site content directory exists
-  ansible.windows.win_file:
-    path: "{{ iis_site_path }}"
-    state: directory
-
-- name: Deploy web.config from template
-  ansible.windows.win_template:
-    src: web.config.j2
-    dest: "{{ iis_site_path }}\\web.config"
-  notify: restart iis site
-  diff: yes
-  tags: config
+- name: Reboot if IIS install required
+  ansible.windows.win_reboot:
+  when: iis_install.reboot_required
+  tags: setup
 
 - name: Ensure IIS application pool exists
   community.windows.win_iis_webapppool:
     name: "{{ iis_pool_name }}"
     state: started
+  tags: config
 
 - name: Configure IIS app pool identity
   community.windows.win_iis_webapppool:
@@ -30,7 +31,8 @@
     identity: specificUser
     username: "{{ iis_pool_user }}"
     password: "{{ iis_pool_password }}"
-  no_log: true
+      #no_log: true
+  tags: config
 
 - name: Ensure IIS site exists
   community.windows.win_iis_website:
@@ -41,9 +43,10 @@
     hostname: ""
     physical_path: "{{ iis_site_path }}"
     application_pool: "{{ iis_pool_name }}"
+  tags: config
 
 - name: Allow HTTP port in Windows Firewall
-  ansible.windows.win_firewall_rule:
+  community.windows.win_firewall_rule:
     name: "Allow HTTP on port {{ websvc_port }}"
     localport: "{{ websvc_port }}"
     action: allow

@@ -1,8 +1,10 @@
 ---
 - name: Deploy Windows IIS service
   hosts: windows_web
-  gather_facts: yes
+  gather_facts: no
 
+  vars_files:
+    - group_vars/dev/vault.yml
   roles:
     - role: websvc
       vars:

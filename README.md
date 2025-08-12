@@ -1,4 +1,4 @@
-# README for Web Service Deployment with Ansible
+# README for Web Service Role Deployment with Ansible
 
 ## Overview
 
@@ -41,31 +41,32 @@ This Ansible project automates the deployment of a web service on both Linux (Ng
 
 ## Directory Structure
 
-ansible/
+/etc/ansible/
 ├── group_vars/
-│   ├── dev/
-│   │   ├── vars.yml
-│   │   └── vault.yml  # ansible-vault encrypted
-│   └── prod/
-│       ├── vars.yml
-│       └── vault.yml  # ansible-vault encrypted
+│ ├── dev/
+│ │ ├── vars.yml
+│ │ └── vault.yml # Encrypted vault file with secrets
+│ └── prod/
+│ ├── vars.yml
+│ └── vault.yml # Encrypted vault file with secrets
 ├── inventory/
-│   ├── dev.ini
-│   ├── prod.ini
+│ └── dev.ini # Inventory file for dev environment
 ├── roles/
-│   └── websvc/
-│       ├── defaults/main.yml
-│       ├── tasks/
-│       │   ├── main.yml
-│       │   ├── linux.yml
-│       │   └── windows.yml
-│       ├── templates/
-│       │   ├── index.html.j2
-│       │   └── web.config.j2
-│       ├── handlers/main.yml
-│       └── ...
-├── site-linux.yml
-├── site-windows.yml
+│ └── websvc/
+│ ├── tasks/
+│ │ ├── main.yml
+│ │ ├── linux.yaml
+│ │ └── windows.yaml
+│ ├── handlers/
+│ │ └── main.yml
+│ ├── templates/
+│ │ ├── index.html.j2
+│ │ └── web.config.j2
+│ └── defaults/
+│ └── main.yml
+├── site-linux.yml # Main playbook for Linux deployment
+├── site-windows.yml # Main playbook for Windows deployment
+
 
 ---
 
